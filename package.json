@@ -1,0 +1,35 @@
+{
+  "name": "pizza-manager",
+  "version": "1.0.0",
+  "description": "Coding exercise for software engineer application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/index.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ihoffman117/pizza-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ihoffman117/pizza-manager/issues"
+  },
+  "homepage": "https://github.com/ihoffman117/pizza-manager#readme",
+  "dependencies": {
+    "@babel/preset-env": "^7.19.3",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "webpack": "^5.74.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.10.0"
+  }
+}
