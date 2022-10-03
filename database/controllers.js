@@ -2,10 +2,39 @@ const { Pizza, Topping } = require('./index');
 
 exports.getAllToppings = (req, res) => {
   console.log('request for all toppings')
-  res.send('nothing to see here')
+
+  Topping.find({})
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+exports.addTopping = (req, res) => {
+
+  Topping.find({name: req.body.name})
+    .then((topping) => {
+      if (!topping.length) {
+        Topping.create(req.body)
+          .then(() => {
+            res.send('success')
+          })
+      } else {
+        res.send('could not create topping: already exists')
+      }
+    })
 }
 
 exports.getAllPizzas = (req, res) => {
   console.log('request for all pizzas')
-  res.send('nothing to see here')
+
+  Pizza.find({})
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
