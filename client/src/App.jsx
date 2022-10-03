@@ -1,17 +1,56 @@
-import React from "react";
+import React, {useState} from "react";
+import styled from 'styled-components';
+import Toppings from './components/Toppings'
+import Pizzas from './components/Pizzas'
+
+// Simple styles for the page, using styled-components
+
+const Nav = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+  border: 1px solid black;
+`;
+
+const NavItem = styled.h3`
+  padding: 10px;
+  width: 25%;
+  border: 1px solid black;
+
+  &:hover{
+    color: red;
+    cursor: pointer;
+  }
+`;
+
+// The actual app components bellow
+
 
 const App = () => {
+
+  const [pageState, setPageState] = useState('home');
+
+  const handlePageChange = (page) => {
+    setPageState(page)
+  }
+
   return (
     <div>
       <h1>
         PIZZA MANAGER
       </h1>
-      <div classname="nav-bar">
-        <ul>
-          <li> Manage Pizzas</li>
-          <li> Manage INgredients</li>
-        </ul>
+      <Nav>
+        <NavItem onClick={ () => handlePageChange('home') }> Home</NavItem>
+        <NavItem onClick={ () => handlePageChange('manage-pizzas') }> Manage Pizzas</NavItem>
+        <NavItem onClick={ () => handlePageChange('manage-toppings') }> Manage Toppings</NavItem>
+      </Nav>
+
+      <div className="rendered-page">
+        {pageState === 'home' ? <h1> Home Page </h1> : null }
+        {pageState === 'manage-pizzas' ? <Pizzas /> : null }
+        {pageState === 'manage-toppings' ? <Toppings /> : null }
       </div>
+
     </div>
   );
 }
