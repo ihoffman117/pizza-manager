@@ -31,6 +31,16 @@ const Toppings = () => {
       })
   }
 
+  const handleDelete = (id) => {
+    axios.delete('/api/toppings', {data: {id: id}})
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   useEffect(() => {
     axios.get('/api/toppings').then((response) => {
       setToppings(response.data)
@@ -39,8 +49,7 @@ const Toppings = () => {
 
   return(
     <>
-      <h2> All Toppings </h2>
-      {toppingsList.length ? <ToppingsList toppingsList={toppingsList} /> : <p>no toppings found</p>}
+
       <form> Add Topping
         <label> Name
           <input onChange={(event) => setToppingName(event.target.value)}></input>
@@ -50,6 +59,9 @@ const Toppings = () => {
         </label>
         <button onClick={ () => handleSubmit(event) }>submit</button>
       </form>
+
+      <h2> All Toppings </h2>
+      {toppingsList.length ? <ToppingsList toppingsList={toppingsList} handleDelete={handleDelete} /> : <p>no toppings found</p>}
     </>
   )
 }

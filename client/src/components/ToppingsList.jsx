@@ -1,10 +1,11 @@
 import React from "react";
+import ToppingsListItem from "./ToppingsListItem";
 
-const ToppingsList = ({toppingsList}) => {
+const ToppingsList = ({toppingsList, handleDelete}) => {
   return(
     <div>
-      {!toppingsList.length ? <h3>There are no toppings found</h3> : toppingsList.map((topping)=> {
-        return <h3>{topping.name}</h3>
+      {!toppingsList.length ? <h3>There are no toppings found</h3> : toppingsList.map((topping, key)=> {
+        return <ToppingsListItem topping={topping} handleDelete={handleDelete} key={key}/>
       })}
     </div>
   )
