@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import ToppingsList from "./ToppingsList";
 
 const Toppings = () => {
 
   const [toppingsList, setToppings] = useState([]);
   const [name, setToppingName] = useState('')
   const [description, setToppingDescription] = useState('')
+  const [shouldPageReload, setShouldPageReload] = useState(false)
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -22,6 +24,7 @@ const Toppings = () => {
     axios.post('/api/toppings', body)
       .then((response) => {
         console.log(response);
+        setShouldPageReload(!shouldPageReload)
       })
       .catch((err) => {
         console.log(err)
@@ -32,12 +35,12 @@ const Toppings = () => {
     axios.get('/api/toppings').then((response) => {
       setToppings(response.data)
     })
-  }, [])
+  }, [shouldPageReload])
 
   return(
     <>
       <h2> All Toppings </h2>
-      {toppingsList.length ? <p> there are toppings</p> : <p>no toppings found</p>}
+      {toppingsList.length ? <ToppingsList toppingsList={toppingsList} /> : <p>no toppings found</p>}
       <form> Add Topping
         <label> Name
           <input onChange={(event) => setToppingName(event.target.value)}></input>
