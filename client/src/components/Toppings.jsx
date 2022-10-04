@@ -32,9 +32,11 @@ const Toppings = () => {
   }
 
   const handleDelete = (id) => {
+    console.log(id)
     axios.delete('/api/toppings', {data: {id: id}})
       .then((response) => {
         console.log(response);
+        setShouldPageReload(!shouldPageReload)
       })
       .catch((err) => {
         console.log(err)

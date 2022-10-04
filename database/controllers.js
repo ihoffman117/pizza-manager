@@ -27,6 +27,18 @@ exports.addTopping = (req, res) => {
     })
 }
 
+exports.deleteTopping = (req, res) => {
+  const id = req.body.id;
+
+  Topping.findByIdAndDelete(id)
+    .then(() => {
+      res.send('success')
+    })
+    .catch((err) => {
+      res.send(err)
+    })
+}
+
 exports.getAllPizzas = (req, res) => {
   console.log('request for all pizzas')
 

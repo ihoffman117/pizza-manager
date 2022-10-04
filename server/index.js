@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { getAllPizzas, getAllToppings, addTopping } = require('../database/controllers')
+const { getAllPizzas, getAllToppings, addTopping, deleteTopping } = require('../database/controllers')
 
 const app = express();
 
@@ -16,6 +16,10 @@ app.get('/api/toppings', (req, res) => {
 app.post('/api/toppings', (req, res) => {
   addTopping(req, res);
 });
+
+app.delete('/api/toppings', (req, res) => {
+  deleteTopping(req, res)
+})
 
 app.get('/api/pizzas', (req, res) => {
   getAllPizzas(req, res);
