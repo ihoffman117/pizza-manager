@@ -1,7 +1,6 @@
 const { Pizza, Topping } = require('./index');
 
 exports.getAllToppings = (req, res) => {
-  console.log('request for all toppings')
 
   Topping.find({})
     .then((data) => {
@@ -38,6 +37,8 @@ exports.deleteTopping = (req, res) => {
       res.send(err)
     })
 }
+
+
 
 exports.getAllPizzas = (req, res) => {
   console.log('request for all pizzas')
