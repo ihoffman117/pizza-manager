@@ -51,3 +51,19 @@ exports.getAllPizzas = (req, res) => {
       console.log(err);
     })
 }
+
+exports.addPizza = (req, res) => {
+  console.log(req.body)
+
+  Pizza.find({name: req.body.name})
+    .then((pizzas) => {
+      if (!pizzas.length) {
+        Pizza.create(req.body)
+          .then(() => {
+            res.send('success')
+          })
+      } else {
+        res.send('could not create Pizza: already exists')
+      }
+    })
+}

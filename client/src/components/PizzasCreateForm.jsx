@@ -17,8 +17,30 @@ const ToppingItem = styled.h4`
 
 const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
 
+  const [toppingsAdded, setToppingsAdded] = useState([])
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+
   const handleAddTopping = (id) => {
-    console.log(id)
+    const index = toppingsAdded.indexOf(id)
+    if(index !== -1){
+      setToppingsAdded(toppingsAdded.splice(index, 1))
+      return
+    }
+    const arr = toppingsAdded;
+    arr.push(id);
+    setToppingsAdded(arr);
+  }
+
+  const handleCreatePizza = () => {
+    const obj = {name, description, toppings: toppingsAdded};
+    axios.post('/api/pizzas', obj)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
   }
 
   return(
@@ -30,11 +52,11 @@ const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
             <form>
               <label>
                 Name 
-                <input></input>
+                <input onChange={(event)=> setName(event.target.value)}></input>
               </label>
               <label>
                 Description
-                <input></input>
+                <input onChange={(event)=> setDescription(event.target.value)}></input>
               </label>
             </form>
           </div>
@@ -42,11 +64,12 @@ const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
             <h3>Click toppings to add</h3>
             {!currentToppings.length 
             ? null 
-            : currentToppings.map((topping) => {
-              return <ToppingItem onClick={() => handleAddTopping(topping._id)}>{topping.name}</ToppingItem>
+            : currentToppings.map((topping, key) => {
+              return <ToppingItem key={key} onClick={() => handleAddTopping(topping._id)}>{topping.name}</ToppingItem>
             })}
           </div>
         </FormDiv>
+        <button onClick={()=> handleCreatePizza()}>add pizza</button>
         <button onClick={()=> setCreatingPizza(false)}>cancel</button>
       </ModalContent>
     </Modal>
