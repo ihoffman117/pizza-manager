@@ -53,17 +53,50 @@ exports.getAllPizzas = (req, res) => {
 }
 
 exports.addPizza = (req, res) => {
-  console.log(req.body)
+  let pizza = req.body;
+  const toppingsArr = [];
 
-  Pizza.find({name: req.body.name})
-    .then((pizzas) => {
-      if (!pizzas.length) {
-        Pizza.create(req.body)
-          .then(() => {
-            res.send('success')
-          })
-      } else {
-        res.send('could not create Pizza: already exists')
-      }
+  pizza.toppings.forEach((id) => {
+    const topping = Topping.findById(id).exec();
+    toppingsArr.push(topping)
+  })
+
+  Promise.all(toppingsArr)
+    .then((values) => {
+      pizza.toppings = values;
+      console.log(pizza)
+
+      Pizza.find({name: req.body.name})
+      .then((pizzas) => {
+        if (!pizzas.length) {
+          Pizza.create(req.body)
+            .then(() => {
+              res.send('success')
+            })
+        } else {
+          res.send('could not create Pizza: already exists')
+        }
+      })
+      .catch((err) => {
+        res.send(err)
+      })
+    })
+    .catch((err) => {
+      res.send(err)
+    })
+
+}
+
+exports.deletePizza = (req, res) => {
+  const id = req.body.id;
+
+  console.log(id)
+
+  Pizza.findByIdAndDelete(id)
+    .then(() => {
+      res.send('success')
+    })
+    .catch((err) => {
+      res.send(err)
     })
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { getAllPizzas, addPizza, getAllToppings, addTopping, deleteTopping } = require('../database/controllers')
+const { getAllPizzas, addPizza, deletePizza, getAllToppings, addTopping, deleteTopping } = require('../database/controllers')
 
 const app = express();
 
@@ -31,6 +31,10 @@ app.get('/api/pizzas', (req, res) => {
 
 app.post('/api/pizzas', (req, res) => {
   addPizza(req, res);
+})
+
+app.delete('/api/pizzas', (req, res) => {
+  deletePizza(req, res);
 })
 
 app.listen(port, () => {
