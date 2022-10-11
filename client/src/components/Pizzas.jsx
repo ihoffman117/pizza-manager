@@ -9,7 +9,7 @@ const Pizzas = () => {
   const [currentToppings, setCurrentToppings] = useState([])
   const [currentPizzas, setCurrentPizzas] = useState([])
 
-  useEffect(()=>{
+  useEffect(() => {
 
     axios.get('/api/toppings')
       .then((response) => {
@@ -33,7 +33,7 @@ const Pizzas = () => {
     <div>
       {creatingPizza ? <PizzasCreateForm setCreatingPizza={setCreatingPizza} currentToppings={currentToppings}/> : null}
       <button onClick={() => setCreatingPizza(true)}>creat a pizza</button>
-      <PizzasList pizzas={currentPizzas}/>
+      <PizzasList pizzas={currentPizzas} currentToppings={currentToppings}/>
     </div>
   )
 }

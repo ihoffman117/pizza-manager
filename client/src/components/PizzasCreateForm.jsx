@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import {Modal, ModalContent} from './sharedCustomComponents'
 import styled from 'styled-components';
+import PizzasCreateFormTopping from "./PizzasCreatFormTopping";
 
 const FormDiv = styled.div`
   display: flex;
@@ -22,12 +23,14 @@ const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
   const [description, setDescription] = useState('')
 
   const handleAddTopping = (id) => {
+    const arr = toppingsAdded;
     const index = toppingsAdded.indexOf(id)
     if(index !== -1){
-      setToppingsAdded(toppingsAdded.splice(index, 1))
+      console.log(index)
+      arr.splice(index, 1);
+      setToppingsAdded(arr)
       return
     }
-    const arr = toppingsAdded;
     arr.push(id);
     setToppingsAdded(arr);
   }
@@ -63,9 +66,9 @@ const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
           <div>
             <h3>Click toppings to add</h3>
             {!currentToppings.length 
-            ? null 
+            ? <ToppingItem> There are no listed toppings found </ToppingItem> 
             : currentToppings.map((topping, key) => {
-              return <ToppingItem key={key} onClick={() => handleAddTopping(topping._id)}>{topping.name}</ToppingItem>
+              return <PizzasCreateFormTopping key={key} handleAddTopping={handleAddTopping} topping={topping}/>
             })}
           </div>
         </FormDiv>
