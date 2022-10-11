@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import PizzasCreateFormTopping from "./PizzasCreatFormTopping";
+import PizzasCreateFormTopping from "./PizzasCreateFormTopping";
 import {Modal, ModalContent} from './sharedCustomComponents'
 
 const FormDiv = styled.div`
@@ -19,17 +19,15 @@ const ToppingItem = styled.h4`
 const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
 
   const [toppingsAdded, setToppingsAdded] = useState([])
+  const [name, setName] = useState(currentPizza.name)
   const [description, setDescription] = useState(currentPizza.description)
 
   useEffect(() => {
     const toppings = []
-    console.log(currentPizza.toppings)
 
     currentPizza.toppings.forEach((topping) => {
       toppings.push(topping._id);
     })
-
-    console.log(toppings)
 
     setToppingsAdded(toppings)
   }, [])
@@ -57,6 +55,10 @@ const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
        <FormDiv>
           <div>
             <form>
+              <label>
+                Name
+                <input onChange={(event) => setName(event.target.name)} value={name}></input>
+              </label>
               <label>
                 Description
                 <input onChange={(event)=> setDescription(event.target.value)} value={description}></input>

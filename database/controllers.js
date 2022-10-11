@@ -1,7 +1,6 @@
 const { Pizza, Topping } = require('./index');
 
 exports.getAllToppings = (req, res) => {
-
   Topping.find({})
     .then((data) => {
       res.send(data);
@@ -12,7 +11,6 @@ exports.getAllToppings = (req, res) => {
 }
 
 exports.addTopping = (req, res) => {
-
   Topping.find({name: req.body.name})
     .then((topping) => {
       if (!topping.length) {
@@ -38,11 +36,39 @@ exports.deleteTopping = (req, res) => {
     })
 }
 
+exports.updateTopping = (req, res) => {
+  const update = {
+    name: req.body.name,
+    description: req.body.description
+  }
+
+  Topping.find({name: req.body.name})
+    .then((topping) => {
+      let canUpdate = false;
+      if(!topping.length) {
+        canUpdate = true;
+      }
+      if(topping.length && topping[0]._id.toHexString() === req.body.id){
+        canUpdate = true;
+      }
+      
+      if(canUpdate){
+        Topping.findByIdAndUpdate(req.body.id, update)
+          .then((updated) => {
+            res.send('sucess')
+          })
+      } else {
+        res.send('can not update the topping with the name of another topping')
+      }
+    })
+    .catch((err) => {
+      res.send(err)
+    })
+}
+
 
 
 exports.getAllPizzas = (req, res) => {
-  console.log('request for all pizzas')
-
   Pizza.find({})
     .then((data) => {
       res.send(data);
@@ -64,7 +90,6 @@ exports.addPizza = (req, res) => {
   Promise.all(toppingsArr)
     .then((values) => {
       pizza.toppings = values;
-      console.log(pizza)
 
       Pizza.find({name: req.body.name})
       .then((pizzas) => {
@@ -89,8 +114,6 @@ exports.addPizza = (req, res) => {
 
 exports.deletePizza = (req, res) => {
   const id = req.body.id;
-
-  console.log(id)
 
   Pizza.findByIdAndDelete(id)
     .then(() => {

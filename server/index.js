@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { getAllPizzas, addPizza, deletePizza, getAllToppings, addTopping, deleteTopping } = require('../database/controllers')
+const { getAllPizzas, addPizza, deletePizza, getAllToppings, addTopping, deleteTopping, updateTopping } = require('../database/controllers')
 
 const app = express();
 
@@ -11,9 +11,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 //Toppings endpoints
 
-app.get('/api/toppings', (req, res) => {
-  getAllToppings(req, res);
-});
+app.get('/api/toppings', getAllToppings);
 
 app.post('/api/toppings', (req, res) => {
   addTopping(req, res);
@@ -21,6 +19,10 @@ app.post('/api/toppings', (req, res) => {
 
 app.delete('/api/toppings', (req, res) => {
   deleteTopping(req, res);
+})
+
+app.put('/api/toppings', (req, res) => {
+  updateTopping(req, res);
 })
 
 //Pizza endpoints
