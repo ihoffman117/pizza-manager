@@ -9,6 +9,12 @@ const Toppings = () => {
   const [description, setToppingDescription] = useState('')
   const [shouldPageReload, setShouldPageReload] = useState(false)
 
+  useEffect(() => {
+    axios.get('/api/toppings').then((response) => {
+      setToppings(response.data)
+    })
+  }, [shouldPageReload])
+
   const handleSubmit = (e) =>{
     e.preventDefault();
 
@@ -42,12 +48,6 @@ const Toppings = () => {
         console.log(err)
       })
   }
-
-  useEffect(() => {
-    axios.get('/api/toppings').then((response) => {
-      setToppings(response.data)
-    })
-  }, [shouldPageReload])
 
   return(
     <>
