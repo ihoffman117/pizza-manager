@@ -2,7 +2,7 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import PizzasCreateFormTopping from "./PizzasCreateFormTopping";
-import {Modal, ModalContent} from './sharedCustomComponents'
+import {Modal, ModalContent} from '../sharedCustomComponents'
 
 const FormDiv = styled.div`
   display: flex;

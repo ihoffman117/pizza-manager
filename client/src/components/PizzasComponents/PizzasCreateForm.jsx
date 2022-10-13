@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {Modal, ModalContent} from './sharedCustomComponents'
+import {Modal, ModalContent} from '../sharedCustomComponents'
 import styled from 'styled-components';
 import PizzasCreateFormTopping from './PizzasCreateFormTopping';
 

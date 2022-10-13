@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import PizzasCreateForm from "./PizzasCreateForm";
-import PizzasList from "./PizzasList";
+import PizzasCreateForm from "./PizzasComponents/PizzasCreateForm";
+import PizzasList from "./PizzasComponents/PizzasList";
 
 const Pizzas = () => {
 

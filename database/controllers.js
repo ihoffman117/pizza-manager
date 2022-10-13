@@ -1,5 +1,8 @@
 const { Pizza, Topping } = require('./index');
 
+
+//Toppings controllers
+
 exports.getAllToppings = (req, res) => {
   Topping.find({})
     .then((data) => {
@@ -66,7 +69,7 @@ exports.updateTopping = (req, res) => {
     })
 }
 
-
+//Pizzas Controllers
 
 exports.getAllPizzas = (req, res) => {
   Pizza.find({})
