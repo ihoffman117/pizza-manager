@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import PizzasCreateFormTopping from "./PizzasCreateFormTopping";
@@ -44,8 +45,21 @@ const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
     setToppingsAdded(arr);
   }
 
-  const handleUpdatePizza = () => {
+  const handleSubmit = (id) => {
+    const body = {
+      id,
+      name,
+      description,
+      toppings: toppingsAdded
+    };
 
+    axios.put('/api/pizzas', body)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return (
@@ -55,14 +69,17 @@ const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
        <FormDiv>
           <div>
             <form>
+
               <label>
                 Name
-                <input onChange={(event) => setName(event.target.name)} value={name}></input>
+                <input onChange={(event) => setName(event.target.value)} value={name}></input>
               </label>
+
               <label>
                 Description
-                <input onChange={(event)=> setDescription(event.target.value)} value={description}></input>
+                <input onChange={(event) => setDescription(event.target.value)} value={description}></input>
               </label>
+
             </form>
           </div>
           <div>
@@ -78,7 +95,7 @@ const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
             })}
           </div>
         </FormDiv>
-        <button onClick={()=> handleUpdatePizza()}>update pizza</button>
+        <button onClick={()=> handleSubmit(currentPizza._id)}>update pizza</button>
         <button onClick={()=> setEdittingPizza(false)}>cancel</button>
       </ModalContent>
     </Modal>

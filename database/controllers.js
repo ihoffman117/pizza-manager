@@ -123,3 +123,59 @@ exports.deletePizza = (req, res) => {
       res.send(err)
     })
 }
+
+exports.updatePizza = (req, res) => {
+
+  let body = req.body;
+  const toppingsArr = [];
+
+  Pizza.find({name: req.body.name})
+    .then((pizza) => {
+      let canUpdate = false;
+
+      /**
+       * the if statements in this function ensure you can't update an
+       * existing pizza's name with the name of another existing pizza, while still allowing 
+       * the user to keep the same name. 
+       */
+
+      if(!pizza.length) {
+        canUpdate = true;
+      }
+      if(pizza.length && pizza[0]._id.toHexString() === req.body.id){
+        canUpdate = true;
+      }
+
+      if(canUpdate){
+        body.toppings.forEach((id) => {
+          const topping = Topping.findById(id).exec();
+          toppingsArr.push(topping)
+        })
+      
+        Promise.all(toppingsArr)
+          .then((values) => {
+            body.toppings = values;
+
+            const update = {
+              name: body.name,
+              description: body.description,
+              toppings: body.toppings
+            }
+
+            Pizza.findByIdAndUpdate(body.id, update)
+              .then((result) => {
+                res.send(result);
+              })
+            
+            })
+            .catch((err) => {
+              res.send(err)
+            })
+      } else {
+        res.send('can not update the topping with the name of another topping')
+      }
+    })
+    .catch((err) => {
+      res.send(err)
+    })
+}

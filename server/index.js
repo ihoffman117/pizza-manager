@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { getAllPizzas, addPizza, deletePizza, getAllToppings, addTopping, deleteTopping, updateTopping } = require('../database/controllers')
+const { getAllPizzas, addPizza, deletePizza, updatePizza, getAllToppings, addTopping, deleteTopping, updateTopping } = require('../database/controllers')
 
 const app = express();
 
@@ -38,6 +38,12 @@ app.post('/api/pizzas', (req, res) => {
 app.delete('/api/pizzas', (req, res) => {
   deletePizza(req, res);
 })
+
+app.put('/api/pizzas', (req, res) => {
+  updatePizza(req, res);
+})
+
+//
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
