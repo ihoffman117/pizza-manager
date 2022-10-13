@@ -1,6 +1,15 @@
 const express = require('express');
 const path = require('path');
-const { getAllPizzas, addPizza, deletePizza, updatePizza, getAllToppings, addTopping, deleteTopping, updateTopping } = require('../database/controllers')
+const { 
+  getAllPizzas,
+  addPizza,
+  deletePizza,
+  updatePizza,
+  getAllToppings,
+  addTopping,
+  deleteTopping,
+  updateTopping
+} = require('../database/controllers')
 
 const app = express();
 
@@ -13,35 +22,21 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/toppings', getAllToppings);
 
-app.post('/api/toppings', (req, res) => {
-  addTopping(req, res);
-});
+app.post('/api/toppings', addTopping);
 
-app.delete('/api/toppings', (req, res) => {
-  deleteTopping(req, res);
-})
+app.delete('/api/toppings', deleteTopping)
 
-app.put('/api/toppings', (req, res) => {
-  updateTopping(req, res);
-})
+app.put('/api/toppings', updateTopping)
 
 //Pizza endpoints
 
-app.get('/api/pizzas', (req, res) => {
-  getAllPizzas(req, res);
-});
+app.get('/api/pizzas', getAllPizzas);
 
-app.post('/api/pizzas', (req, res) => {
-  addPizza(req, res);
-})
+app.post('/api/pizzas', addPizza)
 
-app.delete('/api/pizzas', (req, res) => {
-  deletePizza(req, res);
-})
+app.delete('/api/pizzas', deletePizza)
 
-app.put('/api/pizzas', (req, res) => {
-  updatePizza(req, res);
-})
+app.put('/api/pizzas', updatePizza)
 
 //
 

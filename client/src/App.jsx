@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from 'styled-components';
 import Toppings from './components/Toppings'
 import Pizzas from './components/Pizzas'
+import Home from "./components/Home";
 
 // Simple styles for the page, using styled-components
 
@@ -46,7 +47,7 @@ const App = () => {
       </Nav>
 
       <div className="rendered-page">
-        {pageState === 'home' ? <h1> Home Page </h1> : null }
+        {pageState === 'home' ? <Home /> : null }
         {pageState === 'manage-pizzas' ? <Pizzas /> : null }
         {pageState === 'manage-toppings' ? <Toppings /> : null }
       </div>

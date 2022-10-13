@@ -9,10 +9,18 @@ const EditToppingForm = ({currentTopping, setEditingTopping}) => {
   const [description, setToppingDescription] = useState(currentTopping.description)
 
   const handleSubmit = () => {
+
     const body = {
       id: currentTopping._id, name, description
     }
     axios.put('/api/toppings', body)
+      .then((response) => {
+        console.log(response);
+        setEditingTopping(false)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return(

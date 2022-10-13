@@ -17,7 +17,7 @@ const ToppingItem = styled.h4`
 `;
 
 
-const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
+const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza, handleShouldPageReload}) => {
 
   const [toppingsAdded, setToppingsAdded] = useState([])
   const [name, setName] = useState(currentPizza.name)
@@ -45,7 +45,7 @@ const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
     setToppingsAdded(arr);
   }
 
-  const handleSubmit = (id) => {
+  const handleSubmit = (id) => {    
     const body = {
       id,
       name,
@@ -56,6 +56,8 @@ const EditPizzaForm = ({currentPizza, currentToppings, setEdittingPizza}) => {
     axios.put('/api/pizzas', body)
       .then((response) => {
         console.log(response);
+        handleShouldPageReload()
+        setEdittingPizza(false);
       })
       .catch((err) => {
         console.log(err);

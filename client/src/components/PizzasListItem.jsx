@@ -18,12 +18,14 @@ const ButtonsDiv = styled.div`
   justify-content: space-between
 `;
 
-const PizzasListItem = ({pizza, currentToppings}) => {
+const PizzasListItem = ({pizza, currentToppings, handleShouldPageReload}) => {
 
   const [editingPizza, setEdittingPizza] = useState(false)
 
   const handleDelete = (id) => {
-    axios.delete('/api/pizzas', {data: {id: id}}).then((res) => {
+    axios.delete('/api/pizzas', {data: {id: id}})
+    .then((res) => {
+      handleShouldPageReload()
       console.log (res)
     })
   }
@@ -31,7 +33,7 @@ const PizzasListItem = ({pizza, currentToppings}) => {
   return (
     <PizzaCard>
 
-      {editingPizza ? <EditPizzaForm currentPizza={pizza} currentToppings={currentToppings} setEdittingPizza={setEdittingPizza}/> : null}
+      {editingPizza ? <EditPizzaForm currentPizza={pizza} currentToppings={currentToppings} setEdittingPizza={setEdittingPizza} handleShouldPageReload={handleShouldPageReload}/> : null}
 
       <h3>{pizza.name}</h3>
 

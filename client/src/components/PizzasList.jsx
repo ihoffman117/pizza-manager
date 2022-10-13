@@ -8,7 +8,7 @@ const ListDiv = styled.div`
   gap: 1rem;
 `;
 
-const PizzasList = ({pizzas, currentToppings}) => {
+const PizzasList = ({pizzas, currentToppings, handleShouldPageReload}) => {
   return(
     <div>
       <h2> Available Pizzas </h2>
@@ -16,7 +16,7 @@ const PizzasList = ({pizzas, currentToppings}) => {
       {!pizzas.length 
         ? null 
         : pizzas.map((pizza, key) => {
-          return <PizzasListItem pizza={pizza} key={key} currentToppings={currentToppings}/>
+          return <PizzasListItem pizza={pizza} key={key} currentToppings={currentToppings} handleShouldPageReload={handleShouldPageReload}/>
         })
       }
       </ListDiv>

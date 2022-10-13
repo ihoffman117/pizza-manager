@@ -5,6 +5,7 @@ import ToppingsListItem from "./ToppingsListItem";
 const ListDiv = styled.div`
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 const ToppingsList = ({toppingsList, handleDelete}) => {

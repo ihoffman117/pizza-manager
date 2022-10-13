@@ -16,7 +16,7 @@ const ToppingItem = styled.h4`
   }
 `
 
-const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
+const PizzasCreateForm = ({setCreatingPizza, currentToppings, handleShouldPageReload}) => {
 
   const [toppingsAdded, setToppingsAdded] = useState([])
   const [name, setName] = useState('')
@@ -39,6 +39,8 @@ const PizzasCreateForm = ({setCreatingPizza, currentToppings}) => {
     const obj = {name, description, toppings: toppingsAdded};
     axios.post('/api/pizzas', obj)
       .then((response) => {
+        setCreatingPizza(false)
+        handleShouldPageReload()
         console.log(response.data)
       })
       .catch((err)=> {

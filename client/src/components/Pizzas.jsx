@@ -8,6 +8,7 @@ const Pizzas = () => {
   const [creatingPizza, setCreatingPizza] = useState(false)
   const [currentToppings, setCurrentToppings] = useState([])
   const [currentPizzas, setCurrentPizzas] = useState([])
+  const [shouldPageReload, setShouldPageReload] = useState(false)
 
   useEffect(() => {
 
@@ -27,13 +28,17 @@ const Pizzas = () => {
         console.log(err);
       })
 
-  }, [])
+  }, [shouldPageReload])
+
+  const handleShouldPageReload = () => {
+    setShouldPageReload(!shouldPageReload)
+  }
 
   return(
     <div>
-      {creatingPizza ? <PizzasCreateForm setCreatingPizza={setCreatingPizza} currentToppings={currentToppings}/> : null}
-      <button onClick={() => setCreatingPizza(true)}>creat a pizza</button>
-      <PizzasList pizzas={currentPizzas} currentToppings={currentToppings}/>
+      {creatingPizza ? <PizzasCreateForm setCreatingPizza={setCreatingPizza} currentToppings={currentToppings} handleShouldPageReload={handleShouldPageReload}/> : null}
+      <button onClick={() => setCreatingPizza(true)}>Add A Pizza</button>
+      <PizzasList pizzas={currentPizzas} currentToppings={currentToppings} handleShouldPageReload={handleShouldPageReload}/>
     </div>
   )
 }
